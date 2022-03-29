@@ -8,10 +8,14 @@ class ProntuariosDB {
 
         var connection = mysql.createConnection( {
 
-            host: 'localhost',
+            host: 'us-cdbr-east-05.cleardb.net',
+            user: 'b7ef2893f6d649',
+            password: 'fbc13551',
+            database: 'heroku_7b57421e08276ee'
+            /*host: 'localhost',
             user: 'root',
             password: 'B14sF0rt3s@',
-            database: 'clinica_medica'
+            database: 'clinica_medica'*/
             
         } );
 
