@@ -17,7 +17,7 @@ router.post('/cadastrar_login', function( req, res ) {
 
 router.get( '/gerenciar_logins', function( req, res ) {
 
-    CargosDB.getLogins( function( logins ) {
+    LoginsDB.getLogins( function( logins ) {
 
         res.json( logins );
     });
