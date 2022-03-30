@@ -32,7 +32,7 @@ router.delete('/gerenciar_consultas/:id(\\d+)', function (req, res) {
 
     let id = req.params.id;
 
-    ConsultasDB.deleteConsultaPeloID( id, function( affectedRows ) {
+    ConsultasDB.deletePeloID( id, function( affectedRows ) {
 
         res.json( { msg: "Consulta deletada com sucesso." } );
     });
