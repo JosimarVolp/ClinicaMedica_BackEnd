@@ -15,6 +15,14 @@ router.post('/cadastrar_login', function( req, res ) {
     });
 });
 
+router.get( '/gerenciar_logins', function( req, res ) {
+
+    CargosDB.getLogins( function( logins ) {
+
+        res.json( logins );
+    });
+}); 
+
 router.get( '/gerenciar_logins/perfil/:perfil', function( req, res ) {
 
     let perfil = req.params.perfil;
