@@ -26,6 +26,19 @@ router.get('/gerenciar_consultas/:id(\\d+)', function (req, res) {
     });
 });
 
+//DELETE em /gerenciar_consultas/id
+
+router.delete('/gerenciar_consultas/:id(\\d+)', function (req, res) {
+
+    let id = req.params.id;
+
+    ConsultasDB.deleteConsultaPeloID( id, function( affectedRows ) {
+
+        res.json( { msg: "Consulta deletada com sucesso." } );
+    });
+
+});
+
 //GET em /gerenciar_consultas/cliente/cpf
 
 router.get('/gerenciar_consultas/paciente/:cpf', function ( req, res ) {
@@ -52,18 +65,7 @@ router.get('/gerenciar_consultas/medico/:cpf', function ( req, res ) {
 });
 
 
-//DELETE em /gerenciar_consultas/id
 
-router.delete('/gerenciar_consultas/:id(\\d+)', function (req, res) {
-
-    let id = req.params.id;
-
-    ConsultasDB.deleteConsultaPeloID( id, function( affectedRows ) {
-
-        res.json( { msg: "Consulta deletada com sucesso." } );
-    });
-
-});
 
 //POST em gerenciar_consultas
 
