@@ -21,7 +21,7 @@ let bodyParser = require( 'body-parser' );
 
 var corsOptions = {
 
-    origin: 'https://clinicamedicapucmg.herokuapp.com/',
+    origin: 'https://clinicamedicapucmg.herokuapp.com',
     optionsSuccessStatus: 200
 }
 
