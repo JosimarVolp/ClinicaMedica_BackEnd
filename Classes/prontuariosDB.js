@@ -9,9 +9,9 @@ class ProntuariosDB {
         var connection = mysql.createConnection( {
 
             host: 'us-cdbr-east-05.cleardb.net',
-            user: 'b7ef2893f6d649',
-            password: 'fbc13551',
-            database: 'heroku_7b57421e08276ee'
+            user: 'b196e9e78fe490',
+            password: '417a59e0',
+            database: 'heroku_26a281f19358685'
             /*host: 'localhost',
             user: 'root',
             password: 'B14sF0rt3s@',
