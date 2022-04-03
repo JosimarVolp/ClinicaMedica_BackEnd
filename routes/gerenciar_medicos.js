@@ -4,28 +4,6 @@ const router = express.Router();
 
 const MedicosDB = require('../Classes/medicosDB');
 
-const cors = require('cors');
-
-let app = express();
-
-var corsOptions = {
-
-    origin: 'https://clinicamedicapucmg.herokuapp.com',
-    optionsSuccessStatus: 200
-}
-
-app.use(function (req, res, next) {
-
-    res.setHeader('Access-Control-Allow-Origin', 'https://clinicamedicapucmg.herokuapp.com');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    next();
-});
-
-app.use(cors(corsOptions));
-
 //GET em /gerenciar_medicos
 
 router.get('/gerenciar_medicos', function (req, res) {

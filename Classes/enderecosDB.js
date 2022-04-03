@@ -14,10 +14,6 @@ class EnderecosDB {
             user: 'b196e9e78fe490',
             password: '417a59e0',
             database: 'heroku_26a281f19358685'
-            /*host: 'localhost',
-            user: 'root',
-            password: 'B14sF0rt3s@',
-            database: 'clinica_medica'*/
             
         });
         //Conecta ao DB

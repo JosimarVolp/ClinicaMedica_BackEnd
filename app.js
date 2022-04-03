@@ -1,3 +1,16 @@
+// Importa as classes que comunicam com o Banco de Dados
+
+
+
+//const ConsultasDB = require('./Classes/consultasDB');
+//const ProntuariosDB = require( './Classes/prontuariosDB' );
+//const ComorbidadesDB = require( './Classes/comorbidadesDB' );
+//const Paciente_ComorbidadesDB = require( './Classes/paciente_ComorbidadesDB' );
+//const MedicamentosDB = require( './Classes/medicamentosDB' );
+//const Paciente_MedicamentosDB = require( './Classes/paciente_MedicamentosDB' );
+//const Consulta_MedicamentosDB = require( './Classes/consulta_MedicamentosDB' );
+//const ExamesAgendadosDB = require( './Classes/exames_AgendadosDB' );
+
 const cors = require('cors');
 
 let express = require( 'express' );
@@ -6,28 +19,10 @@ let app = express();
 
 let bodyParser = require( 'body-parser' );
 
-var corsOptions = {
-
-    origin: 'https://clinicamedicapucmg.herokuapp.com',
-    optionsSuccessStatus: 200
-}
-
-app.use(function (req, res, next) {
-
-    res.setHeader('Access-Control-Allow-Origin', 'https://clinicamedicapucmg.herokuapp.com');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    next();
-});
-
-
-
 // Configura para ler dados do POST por form-urlencoded e application/json
 app.use( bodyParser.urlencoded( { extended: false } ) );
 app.use( bodyParser.json() );
-app.use(cors(corsOptions));
+app.use(cors());
 
 
 //Configura uma rota na raiz
