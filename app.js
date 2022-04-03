@@ -19,11 +19,11 @@ let app = express();
 
 let bodyParser = require( 'body-parser' );
 
-/*var corsOptions = {
+var corsOptions = {
 
-    origin: 'https://clinicamedicapuc.herokuapp.com/',
+    origin: 'https://clinicamedicapucmg.herokuapp.com/',
     optionsSuccessStatus: 200
-}*/
+}
 
 app.use(function (req, res, next) {
 
@@ -38,7 +38,7 @@ app.use(function (req, res, next) {
 // Configura para ler dados do POST por form-urlencoded e application/json
 app.use( bodyParser.urlencoded( { extended: false } ) );
 app.use( bodyParser.json() );
-app.use(cors());
+app.use(cors(corsOptions));
 
 
 //Configura uma rota na raiz
