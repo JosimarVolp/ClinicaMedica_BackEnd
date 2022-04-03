@@ -4,6 +4,14 @@ const router = express.Router();
 
 const LoginsDB = require('../Classes/loginsDB');
 
+router.get( '/gerenciar_logins', function( req, res ) {
+
+    LoginsDB.getLogins( function( logins ) {
+
+        res.json( logins );
+    });
+}); 
+
 router.post('/cadastrar_login', function( req, res ) {
 
     let login = req.body;
