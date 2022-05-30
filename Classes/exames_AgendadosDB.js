@@ -25,7 +25,7 @@ class ExamesAgendadosDB {
         let connection = ExamesAgendadosDB.connect();
 
         //SQL para retornar a busca
-        let sql = "select exames_agendados.id as id, loginCliente.nome as cliente, exames.nome as exame, loginFuncionario.nome as funcionario, exames_agendados.data, exames_agendados.hora from exames_agendados inner join logins as loginCLiente on exames_agendados.cliente = loginCliente.cpf inner join exames on exames_agendados.exame = exames.id inner join logins as loginFuncionario on exames_agendados.funcionario = loginFuncionario.cpf";
+        let sql = "select exames_agendados.id as id, loginCliente.nome as cliente, exames.nome as exame, loginFuncionario.nome as funcionario, exames_agendados.data, exames_agendados.hora from exames_agendados inner join logins as loginCLiente on exames_agendados.cliente = loginCliente.cpf inner join exames on exames_agendados.exame = exames.id inner join logins as loginFuncionario on exames_agendados.funcionario = loginFuncionario.cpf where ";
 
         let query = connection.query( sql, function( error, results, fields ) {
 
@@ -94,12 +94,38 @@ class ExamesAgendadosDB {
         connection.end();
     }
 
+    static getExamesAgendadosPeloStatus( status, callback ) {
+
+        //Conecta ao DB
+        let connection = ExamesAgendadosDB.connect();
+
+        let sql = "select exames_agendados.id, loginCliente.nome as cliente, exames.nome as exame, loginFuncionario.nome as funcionario, exames_agendados.data, exames_agendados.hora from exames_agendados inner join logins as loginCliente on exames_agendados.cliente = loginCliente.cpf inner join exames on exames_agendados.exame = exames.id inner join logins as loginFuncionario on exames_agendados.funcionario = loginFuncionario.cpf where exames_agendados.status = '" + status + "'";
+
+        let query = connection.query( sql, function( error, results, fields ) {
+
+            if( error ) throw error;
+
+            if( results.length == 0 ) {
+
+                console.log("O exame pesquisado ainda não foi agendado");
+                return;
+            }
+
+            callback( results );
+        });
+
+        console.log( query.sql );
+
+        //Encerra a conexão
+        connection.end();
+    }
+
     static getExamesAgendadosPeloFuncionario( funcionario, callback ) {
 
         //Conecta ao DB
         let connection = ExamesAgendadosDB.connect();
 
-        let sql = "select exames_agendados.id, loginCLiente.nome as cliente, exames.nome as exame, loginFuncionario.nome as funcionario, exames_agendados.data, exames_agendados.hora from exames_agendados inner join logins as loginCliente on exames_agendados.cliente = loginCLiente.cpf inner join exames on exames_agendados.exame = exames.id inner join logins as loginFuncionario on exames_agendados.funcionario = loginFuncionario.cpf where funcionario = '" + funcionario + "'";
+        let sql = "select exames_agendados.id, loginCLiente.nome as cliente, exames.nome as exame, loginFuncionario.nome as funcionario, exames_agendados.data, exames_agendados.hora from exames_agendados inner join logins as loginCliente on exames_agendados.cliente = loginCLiente.cpf inner join exames on exames_agendados.exame = exames.id inner join logins as loginFuncionario on exames_agendados.funcionario = loginFuncionario.cpf where loginFuncionario.cpf = '" + funcionario + "'";
 
         let query = connection.query( sql, function( error, results, fiels ) {
 
@@ -127,6 +153,33 @@ class ExamesAgendadosDB {
 
         //SQL para consultar os exames agendados pelo cliente;
         let sql = "select exames_agendados.id, loginCliente.nome as cliente, exames.nome as exame, loginFuncionario.nome as funcionario, exames_agendados.data, exames_agendados.hora from exames_agendados inner join logins as loginCLiente on exames_agendados.cliente = loginCliente.cpf inner join exames on exames_agendados.exame = exames.id inner join logins as loginFuncionario on exames_agendados.funcionario = loginFuncionario.cpf where exames_agendados.cliente = '" + cliente + "'";
+
+        let query = connection.query( sql, function( error, results, fields ) {
+
+            if( error ) throw error;
+
+            if( results.length == 0 ) {
+
+                console.log( "Esse paciente não tem nenhum exame agendado");
+                return;                
+            }
+            
+            callback( results );
+        });
+
+        console.log( query.sql );
+
+        //Encerra a conexão
+        connection.end();
+    }
+
+    static getExamesRealizadosPorCliente( cliente, callback ) {
+
+        //Conecta ao DB
+        let connection = ExamesAgendadosDB.connect();
+
+        //SQL para consultar os exames agendados pelo cliente;
+        let sql = "select exames_agendados.id, loginCliente.nome as cliente, exames.nome as exame, loginFuncionario.nome as funcionario, exames_agendados.data, exames_agendados.hora from exames_agendados inner join logins as loginCLiente on exames_agendados.cliente = loginCliente.cpf inner join exames on exames_agendados.exame = exames.id inner join logins as loginFuncionario on exames_agendados.funcionario = loginFuncionario.cpf where exames_agendados.status = 'realizado' AND exames_agendados.cliente = '" + cliente + "'";
 
         let query = connection.query( sql, function( error, results, fields ) {
 

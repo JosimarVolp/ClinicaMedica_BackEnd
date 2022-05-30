@@ -25,7 +25,7 @@ class MedicosDB {
         let connection = MedicosDB.connect();
 
         //SQL para a consulta
-        let sql = "select * from medicos inner join logins on medicos.cpf = logins.cpf";
+        let sql = "select logins.nome as nome, medicos.cpf as cpf, medicos.crm as crm, medicos.especialidade as especialidade, medicos.biografia as biografia, medicos.imagem as imagem from medicos inner join logins on medicos.cpf = logins.cpf";
         let query = connection.query(sql, function(error, results, fields) {
 
             if(error) throw error;
@@ -45,7 +45,7 @@ class MedicosDB {
         //Conecta ao DB
         let connection = MedicosDB.connect();
 
-        let sql = "select * from medicos where cpf = '" + cpf + "'";
+        let sql = "select medicos.cpf as cpf, medicos.crm as crm, medicos.especialidade as especialidade, medicos.biografia as biografia, medicos.imagem as imagem from medicos where medicos.cpf = '" + cpf + "'";
 
         let query = connection.query( sql, cpf, function( error, results, fields ) {
 

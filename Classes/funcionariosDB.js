@@ -108,7 +108,7 @@ class FuncionariosDB {
         //Conecta ao DB
         let connection = FuncionariosDB.connect();
 
-        let sql = "select * from funcionarios where cpf = '" + cpf + "'";
+        let sql = "select * from funcionarios where funcionarios.cpf = '" + cpf + "'";
 
         let query = connection.query( sql, cpf, function( error, results, fields ) {
 
@@ -117,6 +117,7 @@ class FuncionariosDB {
             if(results.length == 0 ) {
 
                 console.log("Funcionário não encontrado");
+                callback(0);
                 return;
             }
 

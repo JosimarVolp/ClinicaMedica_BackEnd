@@ -39,6 +39,28 @@ router.get('/gerenciar_exames_e_procedimentos_agendados/cliente/:cpf', function(
     });
 });
 
+//GET em /gerenciar_exames_e_procedimentos_agendados/status/status
+
+router.get('/gerenciar_exames_e_procedimentos_agendados/status/:status', function(req, res) {
+
+    let status = req.params.status;
+
+    Exames_AgendadosDB.getExamesAgendadosPeloStatus( status, function( exames_agendados ) {
+
+        res.json( exames_agendados );
+    });
+});
+
+router.get('/gerenciar_exames_e_procedimentos_agendados/status/cliente/:cpf', function(req, res) {
+
+    let cpf = req.params.cpf;
+
+    Exames_AgendadosDB.getExamesRealizadosPorCliente( cpf, function( exames_agendados ) {
+
+        res.json( exames_agendados );
+    });
+});
+
 //GET em /gerenciar_exames_e_procedimentos_agendados/funcionario/cpf
 
 router.get('/gerenciar_exames_e_procedimentos_agendados/funcionario/:cpf', function(req, res) {

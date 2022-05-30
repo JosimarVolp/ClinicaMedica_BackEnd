@@ -14,6 +14,8 @@ router.get('/gerenciar_funcionarios', function (req, res) {
     });
 });
 
+
+
 //GET em /gerenciar_funcionarios/exame_que_realiza
 
 router.get('/gerenciar_funcionarios/:exame_que_realiza(\\d+)', function( req, res ) {
@@ -26,8 +28,6 @@ router.get('/gerenciar_funcionarios/:exame_que_realiza(\\d+)', function( req, re
     });
 })
 
-//GET em /gerenciar_funcionarios/cpf
-
 router.get('/gerenciar_funcionarios/:cpf', function (req, res) {
 
     let cpf = req.params.cpf;
@@ -38,6 +38,10 @@ router.get('/gerenciar_funcionarios/:cpf', function (req, res) {
     });
 
 });
+
+//GET em /gerenciar_funcionarios/cpf
+
+
 
 //DELETE em /gerenciar_funcionarios/cpf
 

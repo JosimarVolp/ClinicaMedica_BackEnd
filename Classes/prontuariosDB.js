@@ -25,7 +25,7 @@ class ProntuariosDB {
         let connection = ProntuariosDB.connect();
 
         //SQL para retornar dados
-        let sql = "select * from prontuarios inner join logins on prontuarios.cpf = logins.cpf"
+        let sql = "select logins.nome, logins.cpf from logins inner join prontuarios on prontuarios.cpf = logins.cpf"
 
         let query = connection.query( sql, function( error, results, fields ) {
 

@@ -46,7 +46,7 @@ class LoginsDB {
         let connection = LoginsDB.connect();
 
         //SQL para consultar
-        let sql = "select * from logins where cpf = +'" + cpf + "'";
+        let sql = "select * from logins where cpf = '" + cpf + "'";
         let query = connection.query(sql, cpf, function(error, results, fields) {
 
             if(error) throw error;

@@ -44,7 +44,7 @@ class Paciente_ComorbidadesDB {
         //Conecta ao DB
         let connection = Paciente_ComorbidadesDB.connect();
 
-        let sql = "select logins.nome as paciente, logins.cpf as cpf, comorbidade.nome as comorbidade from paciente_comorbidades inner join logins on paciente_comorbidades.cpf = logins.cpf inner join comorbidades on paciente_comorbidades.comorbidade = comorbidades.id where paciente_comorbidades.cpf = '" + cpf + "'";
+        let sql = "select paciente_comorbidades.cpf as cpf, paciente_comorbidades.comorbidade as comorbidade, comorbidades.nome as nome from paciente_comorbidades inner join comorbidades on comorbidades.id = paciente_comorbidades.comorbidade where paciente_comorbidades.cpf = '" + cpf + "'";
 
         let query = connection.query( sql, cpf, function( error, results, fields ) {
 
@@ -56,12 +56,54 @@ class Paciente_ComorbidadesDB {
                 return;
             }
 
-            callback( results );
+            let pacienteComorbidade = results[0];
+
+            callback( pacienteComorbidade );
         });
 
         console.log(query.sql);
 
         //Encerra a conexão
+        connection.end();
+    }
+
+    static save( paciente_comorbidade, callback ) {
+
+        //Conecta ao DB
+        let connection = Paciente_ComorbidadesDB.connect();
+
+        let sql = "insert into paciente_comorbidades set ?";
+
+        let query = connection.query( sql, paciente_comorbidade, function( error, results, fields) {
+
+            if( error ) throw error;
+
+            callback( paciente_comorbidade );
+        });
+
+        console.log(query.sql);
+
+        //Encerra a conexão
+        connection.end();
+    }
+
+    static update( paciente_comorbidade, callback) {
+
+        let connection = Paciente_ComorbidadesDB.connect();
+
+        let cpf = paciente_comorbidade.cpf;
+
+        let sql  ="update paciente_comorbidades set ? where cpf = '" + cpf + "'";
+
+        let query = connection.query( sql, [paciente_comorbidade, cpf], function( error, results, fields) {
+
+            if( error ) throw error;
+
+            callback( paciente_comorbidade );
+        });
+
+        console.log(query.sql);
+
         connection.end();
     }
 }

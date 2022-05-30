@@ -15,9 +15,13 @@ const cors = require('cors');
 
 let express = require( 'express' );
 
+const path = require('path')
+
 let app = express();
 
 let bodyParser = require( 'body-parser' );
+
+app.use('/files', express.static(path.resolve(__dirname, 'public', 'images')));
 
 // Configura para ler dados do POST por form-urlencoded e application/json
 app.use( bodyParser.urlencoded( { extended: false } ) );
@@ -43,6 +47,13 @@ app.use('/api', require('./routes/gerenciar_medicos'));
 app.use('/api', require('./routes/gerenciar_funcionarios'));
 app.use('/api', require('./routes/gerenciar_consultas'));
 app.use('/api', require('./routes/gerenciar_exames_e_procedimentos_agendados'));
+app.use('/api', require('./routes/gerenciar_comorbidades'));
+app.use('/api', require('./routes/gerenciar_medicamentos'));
+app.use('/api', require('./routes/gerenciar_consultaMedicamentos'));
+app.use('/api', require('./routes/gerenciar_pacienteMedicamentos'));
+app.use('/api', require('./routes/gerenciar_pacienteComorbidades'));
+app.use('/api', require('./routes/gerenciar_prontuarios'));
+app.use('/api', require('./routes/arquivos'));
 
 
 const host =  "localhost"; //server.address().address;

@@ -32,7 +32,17 @@ router.get('/gerenciar_consultas/paciente/:cpf', function ( req, res ) {
 
     let cpf = req.params.cpf;
 
-    ConsultasDB.getConsultasPeloPaciente(cpf, function ( consultas ) {
+    ConsultasDB.getConsultasAgendadasPeloPaciente(cpf, function ( consultas ) {
+
+        res.json( consultas );
+    });
+});
+
+router.get('/gerenciar_consultas/realizadas/:cpf', function ( req, res ) {
+
+    let cpf = req.params.cpf;
+
+    ConsultasDB.getConsultasRealizadasPeloPaciente(cpf, function ( consultas ) {
 
         res.json( consultas );
     });
@@ -45,6 +55,17 @@ router.get('/gerenciar_consultas/medico/:cpf', function ( req, res ) {
     let cpf = req.params.cpf;
 
     ConsultasDB.getConsultasPeloMedico(cpf, function( consultas ) {
+
+        res.json( consultas );
+    });
+
+});
+
+router.get('/gerenciar_consultas/status/:status', function ( req, res ) {
+
+    let status = req.params.status;
+
+    ConsultasDB.getConsultasPeloStatus(status, function( consultas ) {
 
         res.json( consultas );
     });

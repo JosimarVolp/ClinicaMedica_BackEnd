@@ -91,12 +91,12 @@ class ConsultasDB {
         connection.end();
     }
 
-    static getConsultasPeloPaciente( paciente, callback) {
+    static getConsultasAgendadasPeloPaciente( paciente, callback) {
 
         //Conecta ao DB
         let connection = ConsultasDB.connect();
 
-        let sql = "select consultas.id, loginPaciente.nome as paciente, especialidades.nome as especialidade, loginMedico.nome as medico, consultas.data, consultas.hora from consultas inner join logins as loginPaciente on consultas.paciente = loginPaciente.cpf inner join especialidades on consultas.especialidade = especialidades.id inner join logins as loginMedico on consultas.medico = loginMedico.cpf where consultas.paciente = '" + paciente + "'";
+        let sql = "select consultas.id, loginPaciente.nome as paciente, especialidades.nome as especialidade, loginMedico.nome as medico, consultas.data, consultas.hora from consultas inner join logins as loginPaciente on consultas.paciente = loginPaciente.cpf inner join especialidades on consultas.especialidade = especialidades.id inner join logins as loginMedico on consultas.medico = loginMedico.cpf where consultas.status = 'agendada' AND consultas.paciente = '" + paciente + "'";
 
         let query = connection.query( sql, function( error, results, fields ) {
 
@@ -112,6 +112,59 @@ class ConsultasDB {
         });
 
         console.log( query, sql );
+
+        //Encerra a conexão
+        connection.end();
+    }
+
+    static getConsultasRealizadasPeloPaciente( paciente, callback) {
+
+        //Conecta ao DB
+        let connection = ConsultasDB.connect();
+
+        let realizada = "realizada";
+
+        let sql = "select consultas.id, loginPaciente.nome as paciente, especialidades.nome as especialidade, loginMedico.nome as medico, consultas.data, consultas.hora, consultas.diagnostico from consultas inner join logins as loginPaciente on consultas.paciente = loginPaciente.cpf inner join especialidades on consultas.especialidade = especialidades.id inner join logins as loginMedico on consultas.medico = loginMedico.cpf where consultas.status = 'realizada' AND consultas.paciente = '" + paciente + "'";
+
+        let query = connection.query( sql, function( error, results, fields ) {
+
+            if( error ) throw error;
+
+            if( results.length == 0 ) {
+
+                console.log( "Esse paciente não tem consultas agendadas");
+                return;
+            }
+
+            callback( results );
+        });
+
+        console.log( query, sql );
+
+        //Encerra a conexão
+        connection.end();
+    }
+
+    static getConsultasPeloStatus( status, callback ) {
+
+        //Conecta ao DB
+        let connection = ConsultasDB.connect();
+
+        let sql = "select consultas.id, loginPaciente.nome as paciente, especialidades.nome as especialidade, loginMedico.nome as medico, consultas.medico as cpfMedico, consultas.data, consultas.hora from consultas inner join logins as loginPaciente on consultas.paciente = loginPaciente.cpf inner join especialidades on consultas.especialidade = especialidades.id inner join logins as loginMedico on consultas.medico = loginMedico.cpf where consultas.status = '" + status + "'";
+
+        let query = connection.query( sql, function( error, results, fields ) {
+
+            if( error ) throw error;
+
+            if( results.length == 0 ) {
+
+                console.log( "Nenhuma consulta com esse status" );
+                return;
+            }
+            callback( results );
+        });
+
+        console.log( query.sql );
 
         //Encerra a conexão
         connection.end();
